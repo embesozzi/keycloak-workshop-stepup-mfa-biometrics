@@ -1,0 +1,8 @@
+HELP.md
+node_modules
+.DS_Store
+
+### VS Code ###
+.vscode/
+.DS_Store
+.mvn

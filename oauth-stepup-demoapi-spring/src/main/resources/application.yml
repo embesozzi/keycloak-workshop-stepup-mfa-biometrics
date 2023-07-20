@@ -1,0 +1,21 @@
+server:
+  port: 8001
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    com.twogenidentity: DEBUG
+
+# https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver
+spring:
+  sql:
+    init:
+      mode: always
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${OIDC_JWK_SET_URI:http://keycloak:8080/realms/bank/protocol/openid-connect/certs}

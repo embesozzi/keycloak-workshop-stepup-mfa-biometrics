@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  nginx:
+    restart: always
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+        - $PWD/nginx/default.conf:/etc/nginx/conf.d/default.conf
+        - $PWD/certs/localhost.crt:/root/ssl/localhost.crt
+        - $PWD/certs/localhost.key:/root/ssl/localhost.key
+    ports:
+        - "80:80"
+        - "443:443"
+    depends_on:
+      - keycloak    
