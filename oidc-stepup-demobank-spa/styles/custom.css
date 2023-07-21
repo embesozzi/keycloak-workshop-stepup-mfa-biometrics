@@ -25,13 +25,13 @@ color: #fff;
 }
 
 .modal .warp-icon {
-    width: 80px;
-    height: 80px;
-    margin: 0 auto;
-    position: relative;
-    background: rgba(62, 100, 255, 0.05);
-    color: #3e64ff;
-    border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  position: relative;
+  background: rgba(62, 100, 255, 0.05);
+  color: #3e64ff;
+  border-radius: 50%;
 }
 
 
@@ -128,6 +128,7 @@ span.bd-highlight {
     color: #ffffff;
     background-color: #00897B;
 }
+
 .btn-primary {
   --bs-btn-bg: #e91e63;
   --bs-btn-border-color: #e91e63;
@@ -267,7 +268,7 @@ body {
 }
 
 .b-login { 
-  background: url("../images/bg.jpg") no-repeat center center;
+  background: url("../images/bg2.png") no-repeat center center;
   height: 100%;
   /* Center and scale the image nicely */
   background-position: center;

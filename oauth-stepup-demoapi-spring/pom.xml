@@ -6,7 +6,7 @@
 	<artifactId>oauth-stepup-demoapi-spring</artifactId>
 	<name>oauth-stepup-demoapi-spring</name>
 	<version>1.0.0-SNAPSHOT</version>
-	<description>OAuth Spring demo api</description>
+	<description>OAuth step-up demo api</description>
 	<packaging>jar</packaging>
 	<parent>
 		<groupId>org.springframework.boot</groupId>

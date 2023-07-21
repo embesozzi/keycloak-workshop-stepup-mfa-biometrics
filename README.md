@@ -18,9 +18,9 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
 
-* The Bank Portal is an SPA integrated with Keycloak using OpenID Connect. The Portal is capable of handling the 401 Unauthorized with **WWW-Authenticate** header, based on this [RFC](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to perform doing the step-up authentication.
+* The Bank Portal is an SPA integrated with Keycloak using OpenID Connect. The Portal is capable of handling the 401 Unauthorized with **WWW-Authenticate** header, based on this [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to perform doing the step-up authentication.
 
-* The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [RFC](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication.
+* The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication.
 
 
 # How to install?
@@ -42,13 +42,13 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
    docker-compose -f docker-compose-idp.yml -f docker-compose-apps.yml -f docker-compose-lb.yml up
    ```
 
-3. Access the following web UIs using URLs bellow via a web browser.
+3. Access the following URLs below exposed through the NGINX container via a web browser..
 
 | Component                 | URI                       | Username | Password  |
 | ------------------------- | ------------------------- | -------- | --------- |
-| Keycloak Console          | https://localhost         | admin    | password  |
 | Bank Portal               | https://localhost/bank    |          |           |
 | Bank Account API Portal   | https://localhost/api     |          |           |
+| Keycloak Console          | https://localhost         | admin    | password  |
 
 
 ## Test cases
@@ -61,7 +61,7 @@ As an example, I've implemented Global Bank portal that has the following requir
 ### Use case 1: Sign up on the Bank Portal
 
 1.1. Access to the [Bank Portal](https://localhost/bank) and proceed with user registration:
-    <img src="docs/login.png" width="80%" height="80%">
+    <img src="docs/login-3.png" width="80%" height="80%">
 
 1.2. Complete the user information (step 1):
      <img src="docs/register.png" width="80%" height="80%">
@@ -77,7 +77,7 @@ As an example, I've implemented Global Bank portal that has the following requir
 ### Use case 2: Sign in to the Bank Portal for Managing Bank Accounts
 
 2.1. Access to the [Bank Portal](https://localhost/bank) and Sign In:
-    <img src="docs/login.png" width="80%" height="80%">
+    <img src="docs/login-3.png" width="80%" height="80%">
 
 2.2 Complete the username and password (1 factor):
     <img src="docs/login-1.png" width="80%" height="80%">
