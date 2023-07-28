@@ -1,6 +1,6 @@
 # Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys)
 
-This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). I've also added the demonstration of a full passwordless experience with Passkey. Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
+This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). I've also added the demonstration of a full **passwordless** experience with Passkey. Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
 
 The PoC also shows how to implement **OAuth 2.0 Step-up Authentication** based on [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/). This gives the possibility to the API to implement step-up authentication thanks to understand the required Authentication Context Level (acr) and then, if the level is not enough, tells to the client that it needs to trigger step-up authentication. This improves the user experience as you can see in the demo.
 
@@ -10,11 +10,11 @@ You will find more details in the following article:
 
 The PoC implements the concept of step-up authentication for web apps and APIs detailed in my previous [article](https://embesozzi.medium.com/keycloak-step-up-authentication-for-web-and-api-3ef4c9f25d42). Therefore, go there if you need more details about it.
 
-Nevertheless, I've added to the Bank Portal the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring API will return 401 Unauthorized with **WWW-Authenticate** header with **insufficient_authentication_level** error message and the defined **acr_values** that indicates to the client application what ACR value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
+Nevertheless, I've added to the **Bank Portal** the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring API will return 401 Unauthorized with **WWW-Authenticate** header with **insufficient_authentication_level** error message and the defined **acr_values** that indicates to the client application what ACR value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
 
-In a second application called Bank Loan Portal, you will see a full passwordless experience with Passkeys. This app uses Passkeys to improve the login experience.
+In a second application called **Bank Loan Portal**, you will see a full **passwordless** experience with **Passkeys**. This app uses Passkeys to improve the login experience.
 
-Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID.
+Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID for the Bank Portal and the passwordless login experience for the Bank Loan Portal.
 
 ## Components
 
@@ -124,13 +124,13 @@ The Bank Loan portal (Case 3) has the following requirements:
 ### Use case 3: Sign in passworless on the Bank Loan Portal
 
 3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case,x I tested the login in a mobile app, and therefore, I exposed the app to the Internet.
-    <img src="docs/loan-1.png" width="80%" height="80%">
+    <img src="docs/loan-1.jpeg" width="80%" height="80%">
 
 3.2 Click Security key button:
-    <img src="docs/loan-2.png" width="80%" height="80%">
+    <img src="docs/loan-2.jpeg" width="80%" height="80%">
 
 3.3 Verify your identity:   
-    <img src="docs/loan-3.png" width="80%" height="80%">
+    <img src="docs/loan-3.jpeg" width="80%" height="80%">
 
 3.4 You will see the loan portal home:
-    <img src="docs/loan-2.png" width="80%" height="80%">      
+    <img src="docs/loan-2.jpeg" width="80%" height="80%">      
