@@ -123,14 +123,14 @@ The Bank Loan portal (Case 3) has the following requirements:
 
 ### Use case 3: Sign in passworless on the Bank Loan Portal
 
-3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case,x I tested the login in a mobile app, and therefore, I exposed the app to the Internet.
-    <img src="docs/loan-1.jpeg" width="80%" height="80%">
+3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case, I tested the login in a mobile app, and therefore, I exposed the app to the Internet:   
+    <img src="docs/loan-1.jpeg" width="40%" height="40%">
 
-3.2 Click Security key button:
-    <img src="docs/loan-2.jpeg" width="80%" height="80%">
+3.2 Click Security key button:   
+    <img src="docs/loan-2.jpeg" width="40%" height="40%">
 
-3.3 Verify your identity:   
-    <img src="docs/loan-3.jpeg" width="80%" height="80%">
+3.3 Verify your identity:      
+    <img src="docs/loan-3.jpeg" width="40%" height="40%">
 
-3.4 You will see the loan portal home:
-    <img src="docs/loan-2.jpeg" width="80%" height="80%">      
+3.4 You will see the Bank Loan portal home:   
+    <img src="docs/loan-4.jpeg" width="40%" height="40%">      
