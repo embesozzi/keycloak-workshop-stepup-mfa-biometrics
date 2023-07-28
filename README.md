@@ -63,14 +63,15 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 ```
 
 ## Test cases
-As an example, I've implemented Global Bank (Cases 1 and 2) portal that has the following requirements:
+As an example, I've implemented **Global Bank portal** (Cases 1 and 2) portal that has the following requirements:
 
 * Supports OIDC login with one-factor username and password and two factor with Passkeys
 * Only authenticated user with MFA Passkeys can access to manage the bank accounts
 * If the user is not authenticated with MFA when managing bank accounts, it triggers the step-up to MFA :) in a lovely way
 
-The Bank Loan portal (Case 3) has the following requirements:
+The **Bank Loan portal** (Case 3) has the following requirements:
 * Supports OIDC login with Passkeys
+* Only authenticated user with Passkeys can view the loans
 
 ### Use case 1: Sign up on the Bank Portal
 
@@ -123,7 +124,7 @@ The Bank Loan portal (Case 3) has the following requirements:
 
 ### Use case 3: Sign in passworless on the Bank Loan Portal
 
-3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case, I tested the login in a mobile app, and therefore, I exposed the app to the Internet:   
+3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case, I tested the login in a mobile app to verify the user experience (I exposed the app with ngrok):   
     <img src="docs/loan-1.jpeg" width="40%" height="40%">
 
 3.2 Click Security key button:   
