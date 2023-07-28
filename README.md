@@ -47,11 +47,11 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 
 3. Access the following URLs below exposed through the NGINX container via a web browser..
 
-| Component                 | URI                        | Username | Password  |
-| ------------------------- | -------------------------- | -------- | --------- |
-| Bank Portal               | https://localhost/bank     |          |           |
-| Bank Account API Portal   | https://localhost/api      |          |           |
-| Bank Loan Portal          | https://localhost/bankloan |          |           |
+| Component                 | URI                        | Username | Password  | Authn or Authz reference|
+| ------------------------- | -------------------------- | -------- | --------- | --------- |
+| Bank Portal               | https://localhost/bank     |          |           | PWD (1F) or PWD + Passkeys (MFA) |
+| Bank Account API Portal   | https://localhost/api      |          |           | OAuth 2.0 Required ACR LOA2  |
+| Bank Loan Portal          | https://localhost/bankloan |          |           | Passkeys (1F)  |
 | Keycloak Console          | https://localhost          | admin    | password  |
 
 
