@@ -1,6 +1,6 @@
 # Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys)
 
-This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
+This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). I've also added the demonstration of a full passwordless experience with Passkey. Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
 
 The PoC also shows how to implement **OAuth 2.0 Step-up Authentication** based on [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/). This gives the possibility to the API to implement step-up authentication thanks to understand the required Authentication Context Level (acr) and then, if the level is not enough, tells to the client that it needs to trigger step-up authentication. This improves the user experience as you can see in the demo.
 
@@ -10,7 +10,9 @@ You will find more details in the following article:
 
 The PoC implements the concept of step-up authentication for web apps and APIs detailed in my previous [article](https://embesozzi.medium.com/keycloak-step-up-authentication-for-web-and-api-3ef4c9f25d42). Therefore, go there if you need more details about it.
 
-Nevertheless, I've added the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring API will return 401 Unauthorized with **WWW-Authenticate** header with **insufficient_authentication_level** error message and the defined **acr_values** that indicates to the client application what ACR value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
+Nevertheless, I've added to the Bank Portal the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring API will return 401 Unauthorized with **WWW-Authenticate** header with **insufficient_authentication_level** error message and the defined **acr_values** that indicates to the client application what ACR value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
+
+In a second application called Bank Loan Portal, you will see a full passwordless experience with Passkeys. This app uses Passkeys to improve the login experience.
 
 Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID.
 
@@ -22,6 +24,7 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 
 * The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication.
 
+* The Bank Loan Portal is a Vue application integrated with Keycloak using OpenID Connect. The Portal is authenticated with Keycloak, providing a passwordless experience with Passkeys.
 
 # How to install?
 ## Prerequisites
@@ -44,19 +47,30 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 
 3. Access the following URLs below exposed through the NGINX container via a web browser..
 
-| Component                 | URI                       | Username | Password  |
-| ------------------------- | ------------------------- | -------- | --------- |
-| Bank Portal               | https://localhost/bank    |          |           |
-| Bank Account API Portal   | https://localhost/api     |          |           |
-| Keycloak Console          | https://localhost         | admin    | password  |
+| Component                 | URI                        | Username | Password  |
+| ------------------------- | -------------------------- | -------- | --------- |
+| Bank Portal               | https://localhost/bank     |          |           |
+| Bank Account API Portal   | https://localhost/api      |          |           |
+| Bank Loan Portal          | https://localhost/bankloan |          |           |
+| Keycloak Console          | https://localhost          | admin    | password  |
 
+
+4. Optional: If you want to expose the application to the internet, you can use ngrok for testing the passwordless experience with the mobile app. Just run the following command:
+
+```sh
+    NGROK_AUTHTOKEN={YOUR-TOKEN}
+    docker run -it -e NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN} ngrok/ngrok:alpine http host.docker.internal:443
+```
 
 ## Test cases
-As an example, I've implemented Global Bank portal that has the following requirements:
+As an example, I've implemented Global Bank (Cases 1 and 2) portal that has the following requirements:
 
 * Supports OIDC login with one-factor username and password and two factor with Passkeys
 * Only authenticated user with MFA Passkeys can access to manage the bank accounts
 * If the user is not authenticated with MFA when managing bank accounts, it triggers the step-up to MFA :) in a lovely way
+
+The Bank Loan portal (Case 3) has the following requirements:
+* Supports OIDC login with Passkeys
 
 ### Use case 1: Sign up on the Bank Portal
 
@@ -72,7 +86,6 @@ As an example, I've implemented Global Bank portal that has the following requir
 
 1.4. You will see the Bank Portal Home
     <img src="docs/home.png" width="80%" height="80%">
-
 
 ### Use case 2: Sign in to the Bank Portal for Managing Bank Accounts
 
@@ -107,3 +120,17 @@ As an example, I've implemented Global Bank portal that has the following requir
 
 2.9 Go to the Identity Profile section and check your ACR claim: **loa2**
     <img src="docs/home-loa2.png" width="80%" height="80%"> 
+
+### Use case 3: Sign in passworless on the Bank Loan Portal
+
+3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case,x I tested the login in a mobile app, and therefore, I exposed the app to the Internet.
+    <img src="docs/loan-1.png" width="80%" height="80%">
+
+3.2 Click Security key button:
+    <img src="docs/loan-2.png" width="80%" height="80%">
+
+3.3 Verify your identity:   
+    <img src="docs/loan-3.png" width="80%" height="80%">
+
+3.4 You will see the loan portal home:
+    <img src="docs/loan-2.png" width="80%" height="80%">      

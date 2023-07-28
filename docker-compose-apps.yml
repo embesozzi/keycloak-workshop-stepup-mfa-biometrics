@@ -1,6 +1,24 @@
 version: '3'
 
 services:
+  oidc-stepup-demobank-spa:
+    build: ./oidc-stepup-demobank-spa
+    image: twogenidentity/oidc-stepup-demobank-spa:latest
+    container_name: oidc-stepup-demobank-spa
+    environment:
+      KC_URL: ${DOMAIN_URL}
+    ports:
+      - 8000:8000
+    depends_on:
+      - keycloak   
+  oidc-demobankloan-vue:
+    build: ./oidc-demobankloan-vue
+    image: twogenidentity/oidc-demobankloan-vue:latest
+    container_name: oidc-demobankloan-vue
+    ports:
+     - "8002:80"
+    volumes:
+      - ./oidc-demobankloan-vue/oidc-config.dev.js:/usr/share/nginx/html/dist/oidc-config.js
   oauth-stepup-demoapi-spring:
     build: ./oauth-stepup-demoapi-spring
     image: twogenidentity/oauth-stepup-demoapi-spring:latest
@@ -10,15 +28,4 @@ services:
     ports:
       - 8001:8001
     depends_on:
-      - keycloak  
-  oidc-stepup-demobank-spa:
-    build: ./oidc-stepup-demobank-spa
-    image: twogenidentity/oidc-stepup-demobank-spa:latest
-    container_name: oidc-stepup-demobank-spa
-    environment:
-      KC_URL: https://localhost
-    ports:
-      - 8000:8000
-    depends_on:
-      - keycloak      
-  
+      - keycloak        
