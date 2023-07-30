@@ -10,21 +10,21 @@ You will find more details in the following article:
 
 The PoC implements the concept of step-up authentication for web apps and APIs detailed in my previous [article](https://embesozzi.medium.com/keycloak-step-up-authentication-for-web-and-api-3ef4c9f25d42). Therefore, go there if you need more details about it.
 
-Nevertheless, I've added to the **Bank Portal** the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring API will return 401 Unauthorized with **WWW-Authenticate** header with **insufficient_authentication_level** error message and the defined **acr_values** that indicates to the client application what ACR value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
+Nevertheless, I've added to the **Global Bank** portal the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring **Bank Account API** will return 401 Unauthorized with 'WWW-Authenticate' header with 'insufficient_authentication_level' error message and the defined 'acr_values' that indicates to the client application what acr value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
 
-In a second application called **Bank Loan Portal**, you will see a full **passwordless** experience with **Passkeys**. This app uses Passkeys to improve the login experience.
+In a second application called **Bank Loan** portal, you will see a full **passwordless** experience with **Passkeys**. This app uses Passkeys to improve the login experience.
 
-Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID for the Bank Portal and the passwordless login experience for the Bank Loan Portal.
+Lastly On the Keycloak (IdP) side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID for the Bank Portal and the passwordless login experience for the Bank Loan Portal.
 
 ## Overview Architecture
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
 
-* The Bank Portal is an SPA integrated with Keycloak using OpenID Connect. The Portal is capable of handling the 401 Unauthorized with **WWW-Authenticate** header, based on this [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to perform doing the step-up authentication.
+* The **Global Bank** Portal is an SPA integrated with Keycloak using OpenID Connect. The Portal is capable of handling the 401 Unauthorized with **WWW-Authenticate** header, based on this [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to perform doing the step-up authentication.
 
-* The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication challenge if the presented access token offers insufficient authentication based on the acr claim.
+* The **Bank Account API** is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication challenge if the presented access token offers insufficient authentication based on the acr claim.
 
-* The Bank Loan Portal is a Vue application integrated with Keycloak using OpenID Connect. The Portal is authenticated with Keycloak, providing a passwordless experience with Passkeys.
+* The **Bank Loan** Portal is a Vue application integrated with Keycloak using OpenID Connect. The Portal is authenticated with Keycloak, providing a passwordless experience with Passkeys.
 
 ![Architure](docs/architecture-2.png) 
 
@@ -51,18 +51,18 @@ Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauth
 
 | Component                 | URI                        | Username | Password  | Authn or Authz reference|
 | ------------------------- | -------------------------- | -------- | --------- | --------- |
-| Bank Portal               | https://localhost/bank     |          |           | PWD (1F) or PWD + Passkeys (MFA) |
-| Bank Account API Portal   | https://localhost/api      |          |           | OAuth 2.0 Required ACR LOA2  |
-| Bank Loan Portal          | https://localhost/bankloan |          |           | Passkeys (1F)  |
+| Global Bank Portal        | https://localhost/bank     |          |           | pwd (1F) or pwd + passkeys (MFA) |
+| Bank Account API Portal   | https://localhost/api      |          |           | OAuth 2.0 ACR claim loa2  |
+| Bank Loan Portal          | https://localhost/bankloan |          |           | passkeys (1F)  |
 | Keycloak Console          | https://localhost          | admin    | password  |
 
 
 4. Optional: If you want to expose the application to the internet, you can use ngrok for testing the passwordless experience with the mobile app. Just run the following command:
 
-```sh
-    NGROK_AUTHTOKEN={YOUR-TOKEN}
-    docker run -it -e NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN} ngrok/ngrok:alpine http host.docker.internal:443
-```
+    ```bash
+    docker run -it -e NGROK_AUTHTOKEN={YOUR-TOKEN} \
+        ngrok/ngrok:alpine http host.docker.internal:443
+    ```
 
 ## Test cases
 As an example, I've implemented **Global Bank portal** (Cases 1 and 2) portal that has the following requirements:
@@ -75,54 +75,54 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 * Supports OIDC login with Passkeys
 * Only authenticated user with Passkeys can view the loans
 
-### Use case 1: Sign up on the Bank Portal
+### Use case 1: Sign up on the Global Bank Portal
 
 1.1. Access to the [Bank Portal](https://localhost/bank) and proceed with user registration:
-    <img src="docs/login-3.png" width="80%" height="80%">
-
-1.2. Complete the user information (step 1):
-     <img src="docs/register.png" width="80%" height="80%">
-
+    <img src="docs/login-3.png" width="60%" height="60%">
+    
+1.2. Complete the user information (step 1):   
+     <img src="docs/register.png" width="60%" height="60%">
+     
 1.3. Register the Passkeys (step 2):
-    <img src="docs/register-passkeys-1.png" width="80%" height="80%">
-    <img src="docs/register-passkeys-2.png" width="80%" height="80%">
+    <img src="docs/register-passkeys-1.png" width="60%" height="60%">
+    <img src="docs/register-passkeys-2.png" width="60%" height="60%">
 
 1.4. You will see the Bank Portal Home
-    <img src="docs/home.png" width="80%" height="80%">
+    <img src="docs/home.png" width="60%" height="60%">
 
-### Use case 2: Sign in to the Bank Portal for Managing Bank Accounts
+### Use case 2: Sign in to the Global Bank Portal for Managing Bank Accounts
 
 2.1. Access to the [Bank Portal](https://localhost/bank) and Sign In:
-    <img src="docs/login-3.png" width="80%" height="80%">
+    <img src="docs/login-3.png" width="60%" height="60%">
 
 2.2 Complete the username and password (1 factor):
-    <img src="docs/login-1.png" width="80%" height="80%">
-    <img src="docs/login-2.png" width="80%" height="80%">
+    <img src="docs/login-1.png" width="60%" height="60%">
+    <img src="docs/login-2.png" width="60%" height="60%">
 
 2.3 You will see to the Bank Portal Home
-    <img src="docs/home.png" width="80%" height="80%">   
+    <img src="docs/home.png" width="60%" height="60%">   
 
 2.4 Go to the Identity Profile section and check your ACR claim: **loa1**
-    <img src="docs/home-loa1.png" width="80%" height="80%"> 
+    <img src="docs/home-loa1.png" width="60%" height="60%"> 
 
 2.5 Go to the Manage Bank Accounts. You will see that Authn Level is not enough, with a lovely modal that handles the step-up authentication based on the access denied information.
-    <img src="docs/home-manage.png" width="80%" height="80%"> 
+    <img src="docs/home-manage.png" width="60%" height="60%"> 
     
 * Proceed to login sign in with MFA
 
 2.6 Complete the user name and password (1 factor):
-    <img src="docs/login-mfa-1.png" width="80%" height="80%">
-    <img src="docs/login-2.png" width="80%" height="80%">
+    <img src="docs/login-mfa-1.png" width="60%" height="60%">
+    <img src="docs/login-2.png" width="60%" height="60%">
 
 2.7 Select your passkey and then verify your identity, in this case with Touch ID (2 factor):    
-    <img src="docs/login-mfa-2.png" width="80%" height="80%">
-    <img src="docs/login-mfa-3.png" width="80%" height="80%">
+    <img src="docs/login-mfa-2.png" width="60%" height="60%">
+    <img src="docs/login-mfa-3.png" width="60%" height="60%">
 
 2.8 You will see the Bank Account Information since you have signed in with MFA
-    <img src="docs/home-manage-2.png" width="80%" height="80%">
+    <img src="docs/home-manage-2.png" width="60%" height="60%">
 
 2.9 Go to the Identity Profile section and check your ACR claim: **loa2**
-    <img src="docs/home-loa2.png" width="80%" height="80%"> 
+    <img src="docs/home-loa2.png" width="60%" height="60%"> 
 
 ### Use case 3: Sign in passworless on the Bank Loan Portal
 
