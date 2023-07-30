@@ -16,15 +16,17 @@ In a second application called **Bank Loan Portal**, you will see a full **passw
 
 Lastly On the IdP side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID for the Bank Portal and the passwordless login experience for the Bank Loan Portal.
 
-## Components
+## Overview Architecture
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
 
 * The Bank Portal is an SPA integrated with Keycloak using OpenID Connect. The Portal is capable of handling the 401 Unauthorized with **WWW-Authenticate** header, based on this [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to perform doing the step-up authentication.
 
-* The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication.
+* The Bank Account API is a Spring Boot protected by OAuth 2.0, acting as [OAuth2 Resource Server](https://docs.spring.io/spring-security/site/docs/current/reference/html5/#oauth2resourceserver). The API follows the [standard](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) to trigger the step-up authentication challenge if the presented access token offers insufficient authentication based on the acr claim.
 
 * The Bank Loan Portal is a Vue application integrated with Keycloak using OpenID Connect. The Portal is authenticated with Keycloak, providing a passwordless experience with Passkeys.
+
+![Architure](docs/architecture-2.png) 
 
 # How to install?
 ## Prerequisites
@@ -133,4 +135,4 @@ The Bank Loan portal (Case 3) has the following requirements:
     <img src="docs/loan-3.jpeg" width="80%" height="80%">
 
 3.4 You will see the loan portal home:
-    <img src="docs/loan-2.jpeg" width="80%" height="80%">      
+    <img src="docs/loan-4.jpeg" width="80%" height="80%">      
