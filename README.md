@@ -136,7 +136,4 @@ The **Bank Loan portal** (Case 3) has the following requirements:
     <img src="docs/loan-3.jpeg" width="40%" height="40%">
 
 3.4 You will see the Bank Loan portal home:   
-    <img src="docs/loan-4.jpeg" width="40%" height="40%">      
-
-3.4 You will see the loan portal home:
-    <img src="docs/loan-2.jpeg" width="80%" height="80%">      
+    <img src="docs/loan-4.jpeg" width="40%" height="40%">
