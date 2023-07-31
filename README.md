@@ -1,4 +1,4 @@
-# Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys)
+# Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys) and Passwordless login
 
 This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). I've also added the demonstration of a full **passwordless** experience with Passkey. Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
 
