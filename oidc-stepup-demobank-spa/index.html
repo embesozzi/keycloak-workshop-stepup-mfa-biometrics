@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Digital Bank PoC</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/solid.css" integrity="sha384-r/k8YTFqmlOaqRkZuSiE9trsrDXkh07mRaoGBMoDcmA58OHILZPsk29i2BsFng1B" crossorigin="anonymous"/>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/fontawesome.css" integrity="sha384-4aon80D8rXCGx9ayDt85LbyUHeMWd3UiBaWliBlJ53yzm9hqN21A+o1pqoyK04h+" crossorigin="anonymous" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -10,186 +10,182 @@
 </head>
 <body>
 <div class="main w-100">  
-  <header class="navbar navbar-expand-lg navbar-light bg-light flex-md-nowrap p-0 shadow py-2">
-      <a class="navbar-brand m-2" href="#">
-          <img src="images/bank-2.png" width="40" height="40"> <span class="lead">Global Digital Bank</span></span>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand login hidden" href="#">
+        <img src="images/bank-2.png" width="40" height="40"> <span class="lead"><strong>Global</strong> Digital Bank</span></span>
       </a>
-      <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto px-5">
-          <li class="nav-item">
-            <a class="nav-link login hidden" href="#"><!--<i class="fa-solid fa-user-plus"></i>--> Sign Up </a>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item login hidden">
+            <a class="nav-link register-btn" href="#">Sign Up</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="home">
-                  <img width="50" height="50"
+              <span class="login hidden">Access <i class="fa-solid fa-right-to-bracket"></i></span>
+              <span class="home hidden">
+                <img width="50" height="50"
                     alt="User's profile picture"
-                    class="rounded-circle img-fluid profile-image mb-3 mb-md-0 home hidden"
+                    class="rounded-circle img-fluid profile-image"
                     src="https://www.nicepng.com/png/detail/144-1446162_pin-businessman-clipart-png-flat-user-icon.png"/>
-                  <span class="px-1 user-name home hidden"></span>
-                  <span class="login hidden">Access <i class="fa-solid fa-right-to-bracket"></i></span>
-                </span>
-            </a>  
+                <span class="px-1 user-name"></span>
+              </span>  
+            </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item login-btn login hidden" href="#">Sign In</a></li>
               <li><a class="dropdown-item login-btn login hidden" data-acr="loa2" href="#">Sign in with MFA <i class="fa-solid fa-thin fa-fingerprint"></i></a></li>
-              <li><a class="dropdown-item login-btn home hidden"  href="#">Logout</a></li>
+              <li><a class="dropdown-item logout-btn home hidden"  href="#">Logout</a></li>
             </ul>
-          </li>
         </ul>
       </div>
-    </header>
-    <div class="steps login b-login hidden"> 
-      <main class="form-signin text-center">
-        <!--
-          <div class="d-flex justify-content-center">
-          </div>
-          <button class="w-100 btn btn-primary login-btn">Sign in</button>
-          <button class="w-100 btn btn-primary login-btn" data-acr="loa2">Sign in with MFA</button>
-        -->  
-      </main>
     </div>
-    <div class="container-fluid home b-home hidden">
-      <!-- Menu -->
-      <nav id="sidebarMenu" class="col-md-2 col-lg-2 d-md-block bg-white shadow sidebar collapse">
-        <div class="container-fluid mt-4">
-          <a class="navbar-brand" href="#">
-              <img src="images/bank-2.png" width="50" height="50"><span class="lead"> Global Digital Bank</span>
+  </nav>
+  <div class="steps login hidden b-login"> 
+    <main class="form-signin text-center">
+        <div class="d-flex justify-content-center mb-5"></div>
+        <button class="w-100 btn btn-primary login-btn hidden" onclick="login()">Sign in</button>
+        <button class="w-100 btn btn-primary login-btn hidden" onclick="login()" data-acr="loa2">Sign in with MFA</button>
+    </main>
+  </div>
+  <div class="container-fluid home hidden b-home ">
+    <!-- Menu -->
+    <nav id="sidebarMenu" class="col-md-3 col-xs-3 col-lg-2 d-md-block bg-white shadow sidebar collapse">
+      <div class="container-fluid mt-2">
+        <a class="navbar-brand" href="#">
+            <img src="images/bank-2.png" width="50" height="50"><span class="lead"><strong>Global</strong> Digital Bank</span>
+        </a>
+      </div>    
+      <div class="d-flex mt-3 d-flex justify-content-start">
+        <div class="nav flex-column p-2 nav-pills w-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
+            <i class="fa-solid fa-id-badge"></i>Home
           </a>
-        </div>    
-        <div class="d-flex mt-3 p-2 d-flex justify-content-start">
-          <div class="nav flex-column p-2 nav-pills w-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">
-              <i class="fa-solid fa-id-badge"></i>Home
-            </a>
-            <h6 class="sidebar-heading d-flex justify-content-between px-3 mt-4">
-              <span>Business</span>
-            </h6>
-            <a class="nav-link api" id="v-pills-accounts-tab" data-api="accounts" data-bs-toggle="pill" data-bs-target="#v-pills-accounts" type="button" role="tab" aria-controls="v-pills-accounts" aria-selected="false">
-              <i class="fa-solid fa-fingerprint"></i>Manage Accounts
-            </a>
-            <h6 class="sidebar-heading d-flex justify-content-between px-3 mt-4">
-              <span>Settings</span>
-            </h6>
-            <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
-              <i class="fa-solid fa-id-badge"></i>Identity Profile
-            </a>
-          </div>
+          <h6 class="sidebar-heading d-flex justify-content-between px-3 mt-4">
+            <span>Business</span>
+          </h6>
+          <a class="nav-link api" id="v-pills-accounts-tab" data-api="accounts" data-bs-toggle="pill" data-bs-target="#v-pills-accounts" type="button" role="tab" aria-controls="v-pills-accounts" aria-selected="false">
+            <i class="fa-solid fa-fingerprint"></i>Manage Accounts
+          </a>
+          <h6 class="sidebar-heading d-flex justify-content-between px-3 mt-4">
+            <span>Settings</span>
+          </h6>
+          <a class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+            <i class="fa-solid fa-id-badge"></i>Identity Profile
+          </a>
         </div>
-      </nav>  
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> 
-        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
-          <div class="tab-content w-100" id="v-pills-tabContent">
-            <!-- Home page -->
-            <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
-              <div class="jumbotron profile">
-                <div class="text-center">
-                  <img width="150" height="180"
-                  alt="User's profile picture"
-                  class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
-                  src="https://www.nicepng.com/png/detail/144-1446162_pin-businessman-clipart-png-flat-user-icon.png"
-                  />
-                </div>  
-                <h1 class="display-4">Hello, <span class="user-name"></span></h1>
-                <p class="lead-2">Welcome to the new digital experience of the Digital Global Bank</p>
-                <p class="lead">More <span class="bd-highlight">secure with biometric MFA</span> when managing your confidential information</p>
-                <p class="lead">We aim to  <span class="bd-highlight">improve the user experience</span> by only requiring MFA when necessary</p>
-              </div>
+      </div>
+    </nav>  
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4"> 
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3">
+        <div class="tab-content w-100" id="v-pills-tabContent">
+          <!-- Home page -->
+          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">
+            <div class="jumbotron profile">
+              <div class="text-center">
+                <img width="150" height="180"
+                alt="User's profile picture"
+                class="rounded-circle img-fluid profile-image mb-3 mb-md-0"
+                src="https://www.nicepng.com/png/detail/144-1446162_pin-businessman-clipart-png-flat-user-icon.png"
+                />
+              </div>  
+              <h1 class="display-4">Hello, <span class="user-name"></span></h1>
+              <p class="lead-2">Welcome to the new digital experience of the Digital Global Bank</p>
+              <p class="lead">More <span class="bd-highlight">secure with biometric MFA</span> when managing your confidential information</p>
+              <p class="lead">We aim to  <span class="bd-highlight">improve the user experience</span> by only requiring MFA when necessary</p>
             </div>
-            <!-- Profile page -->
-            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-              <div class="text-center mt-5">
-                <p class="lead">This page shows the tokens</p>
-                <div class="accordion" id="accordionExample text-left">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
-                        Show Identity Token
-                      </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <code class="id-token"></code>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Show Access Token
-                      </button>
-                    </h2>
-                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <code class="access-token json"></code>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        Show User Info
-                      </button>
-                    </h2>
-                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                      <div class="accordion-body">
-                        <div class="row">
-                          <code class="user-info json"></code>
-                        </div>
+          </div>
+          <!-- Profile page -->
+          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
+            <div class="text-center mt-5">
+              <p class="lead">This page shows the tokens</p>
+              <div class="accordion" id="accordionExample text-left">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
+                      Show Identity Token
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <code class="id-token"></code>
                       </div>
                     </div>
                   </div>
                 </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Show Access Token
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <code class="access-token json"></code>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Show User Info
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="row">
+                        <code class="user-info json"></code>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>  
+          </div>
+          <!-- Bank accounts (Protected) -->
+          <div class="tab-pane fade" id="v-pills-accounts" role="tabpanel" aria-labelledby="v-pills-accounts-tab" tabindex="0">
+            <div class="text-center mt-5">
+              <p class="lead">This page shows the bank accounts information</p>
+              <div class="container d-flex justify-content-center card-container"> 
               </div>  
-            </div>
-            <!-- Bank accounts (Protected) -->
-            <div class="tab-pane fade" id="v-pills-accounts" role="tabpanel" aria-labelledby="v-pills-accounts-tab" tabindex="0">
-              <div class="text-center mt-5">
-                <p class="lead">This page shows the bank accounts information</p>
-                <div class="container d-flex justify-content-center card-container"> 
-                </div>  
-              </div>  
-            </div>
+            </div>  
           </div>
         </div>
-      </main>
-    </div>
-
-    <div id="modal" class="modal">
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body text center">
-            <div class="warp-icon mb-4">
-              <i class="fa-solid fa-thin fa-fingerprint center fa-3x mt-3"></i>
-            </div>
-            <p class="mb-2 lead">Multi-factor Authentication is required to proceed</p>
-            <p class="mb-2 text-muted p-3">Please access with MFA Passkeys to have a more secure experience</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary login-btn">Access with MFA <i class="fa-solid fa-thin fa-fingerprint"></i></button>
-          </div>
-        </div>
-      </div> 
-    </div>
-    
-    <div id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 text-muted"">
-      <div class="nav col-md-12 justify-content-center">
-        Sample provided by<a href="https://twogenidentity.com" class="ml-2"> ©2023 TwoGenIdentity.</a>All rights reserved 
       </div>
+    </main>
+  </div>
+  <div id="modal" class="modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body text center">
+          <div class="warp-icon mb-4">
+            <i class="fa-solid fa-thin fa-fingerprint center fa-3x mt-3"></i>
+          </div>
+          <p class="mb-2 lead">Multi-factor Authentication is required to proceed</p>
+          <p class="mb-2 text-muted p-3">Please access with MFA Passkeys to have a more secure experience</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary login-btn">Access with MFA <i class="fa-solid fa-thin fa-fingerprint"></i></button>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <div id="footer" class="d-flex flex-wrap justify-content-between align-items-center py-3 text-muted"">
+    <div class="nav col-md-12 justify-content-center">
+      Sample provided by<a href="https://twogenidentity.com" class="ml-2"> ©2023 TwoGenIdentity.</a>All rights reserved 
     </div>
   </div>
-  <script type="text/javascript" src="KC_URL/js/keycloak.js"></script>  
+</div>
+  <script type="text/javascript" src="/js/keycloak.js"></script>  
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="js/index.js"></script>    
 </body>    

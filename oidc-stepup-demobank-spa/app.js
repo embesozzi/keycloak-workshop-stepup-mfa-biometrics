@@ -3,7 +3,7 @@ const http = require('http');
 var app = express();
 var stringReplace = require('string-replace-middleware');
 
-var KC_URL = process.env.KC_URL || "https://localhost";
+var KC_URL = process.env.KC_URL || "";
 
 app.use(stringReplace({'KC_URL': KC_URL}))
     .use('/bank', express.static('.'))

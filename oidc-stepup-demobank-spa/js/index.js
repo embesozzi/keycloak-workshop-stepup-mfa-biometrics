@@ -18,6 +18,14 @@ const login = async (e) => {
   }
 };
 
+const register = () => {
+  kc.register();
+}
+
+const logout = async() => {
+  await kc.logout();
+}
+
 const requestApi = async (target) => {    
   try {
     const token = await kc.token;
@@ -82,9 +90,10 @@ const renderProfile = () => {
 }
 
 document.addEventListener('DOMContentLoaded', () => {  
-  
-  document.querySelectorAll('.login-btn').forEach((x) => x.addEventListener('click', login));
-  
+  document.querySelectorAll('.login-btn').forEach((x) => { x.addEventListener('click', login) });
+  document.querySelector('.logout-btn').addEventListener('click', logout);
+  document.querySelector('.register-btn').addEventListener('click', register);
+
   authnHandlerModal = new bootstrap.Modal(document.getElementById('modal'))
     
   document.querySelectorAll('a[data-bs-toggle="pill"]').forEach(a => {

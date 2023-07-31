@@ -1,14 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,100);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-
-.navbar .navbar-nav .nav-link {
-  font-size: 1.1em;
-}
-
 .navbar .navbar-nav .nav-link:hover {
-background-color: #3e64ff;
-color: #fff;
+  background-color: #3e64ff;
+  color: #fff;
 }
 
 .b-home { 
@@ -42,6 +37,7 @@ color: #fff;
   border-radius: 2px;
   background-clip: padding-box;
 }
+
 
 .btn {
   overflow: hidden;
@@ -90,6 +86,7 @@ color: #fff;
             backface-visibility: hidden;
 }
 
+
 .btn-primary {
   color: #ffffff;
   background-color: #3F51B5;
@@ -105,6 +102,7 @@ span.bd-highlight {
   font-size: 2rem;
   font-weight: 300;
 }
+
 
 .btn-primary:hover,
 .btn-primary:focus,
@@ -268,9 +266,8 @@ body {
 }
 
 .b-login { 
-  background: url("../images/bg2.png") no-repeat center center;
+  background: url("../images/bg3.png") no-repeat center center;
   height: 100%;
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -302,15 +299,15 @@ body {
   }
 
 .card-container 
-  .btn-secondary{
+  .btn-secondary {
     height: 40px!important;
     margin-top: 3px;
-  }
+}
 
 .card-container 
-  .btn-secondary:focus{
+  .btn-secondary:focus {
     box-shadow: none;
-  }
+}
 
 #footer {
       position: fixed;
@@ -327,9 +324,11 @@ body {
   margin-right: 5px;
 }
 
-a i::before {
+
+#sidebarMenu a i::before {
   padding-right: 20px;
 }
+
 
 .sidebar {
   position: fixed;
@@ -353,8 +352,9 @@ a i::before {
   height: calc(100vh - 48px);
   padding-top: .5rem;
   overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  overflow-y: auto;
 }
+
 
 .sidebar .nav-link {
   color: #333;
@@ -363,6 +363,7 @@ a i::before {
 .hidden {
   display: none;
 }
+
 .profile {
   margin-top: 50px;
   text-align: center;
@@ -372,17 +373,15 @@ a i::before {
 
 html, body {height: 100%}
 
+
 .main {
   height: 100%;
-}   
+}
+
 
 label {
   margin-bottom: 10px;
   display: block;
-}
-
-.navbar {
-  min-height: 80px;
 }
 
 .form-signin {
@@ -391,6 +390,7 @@ label {
   padding: 15px;
   margin: auto;
 }
+
 .form-signin button {
   margin-bottom: 10px;
 }
