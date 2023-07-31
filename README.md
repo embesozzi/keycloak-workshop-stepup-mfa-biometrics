@@ -83,22 +83,22 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 1.2. Complete the user information (step 1):   
      <img src="docs/register.png" width="60%" height="60%">
      
-1.3. Register the Passkeys (step 2):
+1.3. Register the Passkeys (step 2):  
     <img src="docs/register-passkeys-1.png" width="60%" height="60%">
     <img src="docs/register-passkeys-2.png" width="60%" height="60%">
 
-1.4. You will see the Bank Portal Home
+1.4. You will see the Bank Portal Home  
     <img src="docs/home.png" width="60%" height="60%">
 
 ### Use case 2: Sign in to the Global Bank Portal for Managing Bank Accounts
 
-2.1. Access to the [Bank Portal](https://localhost/bank) and Sign In:
+2.1. Access to the [Bank Portal](https://localhost/bank) and Sign In:  
     <img src="docs/login-3.png" width="60%" height="60%">
 
 2.2 Complete the username and password (1 factor):  
     <img src="docs/login-1.png" width="60%" height="60%">
     <img src="docs/login-2.png" width="60%" height="60%">  
-2.3 You will see to the Bank Portal Home
+2.3 You will see to the Bank Portal Home:  
     <img src="docs/home.png" width="60%" height="60%">   
 
 2.4 Go to the Identity Profile section and check your ACR claim: **loa1**
