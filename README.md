@@ -95,26 +95,25 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 2.1. Access to the [Bank Portal](https://localhost/bank) and Sign In:
     <img src="docs/login-3.png" width="60%" height="60%">
 
-2.2 Complete the username and password (1 factor):
+2.2 Complete the username and password (1 factor):  
     <img src="docs/login-1.png" width="60%" height="60%">
-    <img src="docs/login-2.png" width="60%" height="60%">
-
+    <img src="docs/login-2.png" width="60%" height="60%">  
 2.3 You will see to the Bank Portal Home
     <img src="docs/home.png" width="60%" height="60%">   
 
 2.4 Go to the Identity Profile section and check your ACR claim: **loa1**
     <img src="docs/home-loa1.png" width="60%" height="60%"> 
 
-2.5 Go to the Manage Bank Accounts. You will see that Authn Level is not enough, with a lovely modal that handles the step-up authentication based on the access denied information.
+2.5 Go to the Manage Bank Accounts. You will see that Authn Level is not enough, with a lovely modal that handles the step-up authentication based on the access denied information.   
     <img src="docs/home-manage.png" width="60%" height="60%"> 
     
 * Proceed to login sign in with MFA
 
-2.6 Complete the user name and password (1 factor):
+2.6 Complete the user name and password (1 factor):   
     <img src="docs/login-mfa-1.png" width="60%" height="60%">
     <img src="docs/login-2.png" width="60%" height="60%">
 
-2.7 Select your passkey and then verify your identity, in this case with Touch ID (2 factor):    
+2.7 Select your passkey and then verify your identity, in this case with Touch ID (2 factor):   
     <img src="docs/login-mfa-2.png" width="60%" height="60%">
     <img src="docs/login-mfa-3.png" width="60%" height="60%">
 
