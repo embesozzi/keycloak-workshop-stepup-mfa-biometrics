@@ -16,7 +16,7 @@ x-keycloak-environment: &keycloak-environment
   KC_HOSTNAME_STRICT_HTTPS: true
   KC_HTTP_ENABLED: true
   KC_HEALTH_ENABLED: true
-  KC_FEATURES: account3
+#  KC_FEATURES: account3
   KC_PROXY: edge
 
 
@@ -49,6 +49,7 @@ services:
       - 8080:8080
       - 8443:8443
     volumes:  
-     - $PWD/keycloak/realm-export-bank.json:/opt/keycloak/data/import/realm-export-bank.json  
+     - $PWD/keycloak/realm-export-bank.json:/opt/keycloak/data/import/realm-export-bank.json
+     - $PWD/keycloak/themes:/opt/keycloak/themes  
     depends_on:
       - postgres

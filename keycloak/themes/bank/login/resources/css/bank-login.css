@@ -1,0 +1,86 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500,700,100);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+body {
+    font-family: "Roboto", sans-serif;    
+}
+
+.login-pf body {
+    background: linear-gradient(-45deg, #23d5ab, #23a6d5, #23a6d5, #23d5ab) !important;
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+}
+
+div.kc-logo-text {
+    display: none;
+}
+
+.card-pf {
+    opacity: .8;
+    border-top: 0px !important;
+    min-height: 250px;
+}
+
+.pf-c-button.pf-m-primary {
+    overflow: hidden;
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+    display: inline-block;
+    height: 36px;
+    line-height: 36px;
+    vertical-align: middle;
+    border: none;
+    padding: 0 16px;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 400;
+    font-size: 14px;
+    color: #212121;
+    background-image: none;
+    background-color: #E0E0E0;
+      
+      -webkit-border-radius: 2px;
+        -moz-border-radius: 2px;
+              border-radius: 2px;
+  
+      -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+              box-shadow: none;
+  
+      -webkit-transition: all 0.2s ease;
+        -moz-transition: all 0.2s ease;
+          -o-transition: all 0.2s ease;
+              transition: all 0.2s ease;
+  
+      -ms-touch-action: manipulation;
+          touch-action: manipulation;
+  
+      -webkit-user-select: none;
+        -moz-user-select: none;
+          -ms-user-select: none;
+              user-select: none;
+  
+      -webkit-backface-visibility: hidden;
+              backface-visibility: hidden;
+}
+
+.pf-m-primary:hover{
+    background-color: #3F51B5;
+    border-color: #3F51B5;
+    color:white;
+    box-shadow: 0 14px 26px -12px #251ee966, 0 4px 23px 0 rgba(94, 30, 233, 0.15), 0 8px 10px -5px rgba(77, 30, 233, 0.2);
+}
+
+#kc-info-wrapper {
+    background-color: white !important;
+    padding-top: 20px; 
+}
+
+#kc-registration span {
+    text-transform: uppercase;
+    text-decoration: none;
+}

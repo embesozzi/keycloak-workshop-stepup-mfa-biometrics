@@ -114,8 +114,9 @@ The **Bank Loan portal** (Case 3) has the following requirements:
     <img src="docs/login-2.png" width="60%" height="60%">
 
 2.7 Select your passkey and then verify your identity, in this case with Touch ID (2 factor):   
-    <img src="docs/login-mfa-2.png" width="60%" height="60%">
     <img src="docs/login-mfa-3.png" width="60%" height="60%">
+    <img src="docs/login-mfa-4.png" width="60%" height="60%">
+    <img src="docs/login-mfa-5.png" width="60%" height="60%">
 
 2.8 You will see the Bank Account Information since you have signed in with MFA
     <img src="docs/home-manage-2.png" width="60%" height="60%">
