@@ -65,8 +65,8 @@
   "otpPolicyCodeReusable": false,
   "otpSupportedApplications": [
     "totpAppFreeOTPName",
-    "totpAppMicrosoftAuthenticatorName",
-    "totpAppGoogleName"
+    "totpAppGoogleName",
+    "totpAppMicrosoftAuthenticatorName"
   ],
   "webAuthnPolicyRpEntityName": "keycloak",
   "webAuthnPolicySignatureAlgorithms": [
@@ -296,7 +296,7 @@
         "token.response.type.bearer.lower-case": "false"
       },
       "authenticationFlowBindingOverrides": {
-        "browser": "7ed5da3b-4cac-449f-a823-82cdd3e6382e"
+        "browser": "20213900-e874-4882-86a5-5e891311f340"
       },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,
@@ -856,21 +856,6 @@
       },
       "protocolMappers": [
         {
-          "id": "e09bed4a-fb09-4a57-bec4-8261a6545590",
-          "name": "website",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-usermodel-attribute-mapper",
-          "consentRequired": false,
-          "config": {
-            "userinfo.token.claim": "true",
-            "user.attribute": "website",
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "claim.name": "website",
-            "jsonType.label": "String"
-          }
-        },
-        {
           "id": "63a147cb-bc90-462b-8790-7fc0ce93638a",
           "name": "updated at",
           "protocol": "openid-connect",
@@ -883,6 +868,21 @@
             "access.token.claim": "true",
             "claim.name": "updated_at",
             "jsonType.label": "long"
+          }
+        },
+        {
+          "id": "e09bed4a-fb09-4a57-bec4-8261a6545590",
+          "name": "website",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "website",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "website",
+            "jsonType.label": "String"
           }
         },
         {
@@ -946,21 +946,6 @@
           }
         },
         {
-          "id": "31abae60-9cbc-49a0-88f8-404e8f12c6bf",
-          "name": "nickname",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-usermodel-attribute-mapper",
-          "consentRequired": false,
-          "config": {
-            "userinfo.token.claim": "true",
-            "user.attribute": "nickname",
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "claim.name": "nickname",
-            "jsonType.label": "String"
-          }
-        },
-        {
           "id": "56e11656-b01a-47db-b2b8-426f3d15c2ae",
           "name": "birthdate",
           "protocol": "openid-connect",
@@ -972,6 +957,21 @@
             "id.token.claim": "true",
             "access.token.claim": "true",
             "claim.name": "birthdate",
+            "jsonType.label": "String"
+          }
+        },
+        {
+          "id": "31abae60-9cbc-49a0-88f8-404e8f12c6bf",
+          "name": "nickname",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "userinfo.token.claim": "true",
+            "user.attribute": "nickname",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "nickname",
             "jsonType.label": "String"
           }
         },
@@ -1173,14 +1173,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-user-attribute-mapper",
             "oidc-usermodel-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-full-name-mapper",
+            "oidc-usermodel-property-mapper",
             "oidc-sha256-pairwise-sub-mapper",
             "saml-role-list-mapper",
-            "oidc-full-name-mapper",
-            "oidc-address-mapper",
             "saml-user-property-mapper",
-            "oidc-usermodel-property-mapper"
+            "saml-user-attribute-mapper"
           ]
         }
       },
@@ -1247,14 +1247,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
-            "saml-role-list-mapper",
             "oidc-address-mapper",
             "saml-user-attribute-mapper",
-            "saml-user-property-mapper",
-            "oidc-usermodel-attribute-mapper",
             "oidc-full-name-mapper",
+            "oidc-usermodel-property-mapper",
+            "oidc-usermodel-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-property-mapper"
+            "saml-role-list-mapper",
+            "saml-user-property-mapper"
           ]
         }
       }
@@ -1402,9 +1402,9 @@
       ]
     },
     {
-      "id": "93e48f46-0bba-46d0-aaaa-91781e35b644",
-      "alias": "Browser Passwordless",
-      "description": "browser based WebAuthn Passkeys",
+      "id": "20213900-e874-4882-86a5-5e891311f340",
+      "alias": "Browser Passkeys Autofill",
+      "description": "Browser based Passkeys Autofill",
       "providerId": "basic-flow",
       "topLevel": true,
       "builtIn": false,
@@ -1418,19 +1418,45 @@
           "userSetupAllowed": false
         },
         {
-          "authenticator": "webauthn-authenticator-passwordless",
+          "authenticatorFlow": true,
+          "requirement": "ALTERNATIVE",
+          "priority": 13,
+          "autheticatorFlow": true,
+          "flowAlias": "Browser Passkeys Autofill Conditional Step",
+          "userSetupAllowed": false
+        }
+      ]
+    },
+    {
+      "id": "7344e709-cbaa-4e60-9e4e-17b7ed14641c",
+      "alias": "Browser Passkeys Autofill Conditional Step",
+      "description": "",
+      "providerId": "basic-flow",
+      "topLevel": false,
+      "builtIn": false,
+      "authenticationExecutions": [
+        {
+          "authenticator": "webauthn-conditional-authenticator",
           "authenticatorFlow": false,
-          "requirement": "REQUIRED",
-          "priority": 11,
+          "requirement": "ALTERNATIVE",
+          "priority": 0,
+          "autheticatorFlow": false,
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "auth-password-form",
+          "authenticatorFlow": false,
+          "requirement": "ALTERNATIVE",
+          "priority": 1,
           "autheticatorFlow": false,
           "userSetupAllowed": false
         }
       ]
     },
     {
-      "id": "7ed5da3b-4cac-449f-a823-82cdd3e6382e",
-      "alias": "Browser Web Authn",
-      "description": "browser based authentication",
+      "id": "93e48f46-0bba-46d0-aaaa-91781e35b644",
+      "alias": "Browser Passwordless",
+      "description": "browser based WebAuthn Passkeys",
       "providerId": "basic-flow",
       "topLevel": true,
       "builtIn": false,
@@ -2183,8 +2209,8 @@
   "attributes": {
     "cibaBackchannelTokenDeliveryMode": "poll",
     "cibaAuthRequestedUserHint": "login_hint",
-    "oauth2DevicePollingInterval": "5",
     "clientOfflineSessionMaxLifespan": "0",
+    "oauth2DevicePollingInterval": "5",
     "clientSessionIdleTimeout": "0",
     "clientOfflineSessionIdleTimeout": "0",
     "cibaInterval": "5",

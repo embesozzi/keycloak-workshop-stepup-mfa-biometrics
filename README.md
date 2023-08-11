@@ -1,6 +1,9 @@
 # Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys) and Passwordless login
 
-This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). I've also added the demonstration of a full **passwordless** experience with Passkey. Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
+This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). It also outlines the process of transitioning to a **passwordless** experience through the use of Passkeys.
+It doesn’t matter whether your current application utilizes authentication via username and password. I will demonstrate how you can also provide Passkey login, offering a remarkably smooth experience through [WebAuth Conditional UI](https://github.com/w3c/webauthn/wiki/Explainer:-WebAuthn-Conditional-UI) or Passkey autofill during the transition to a passwordless login.
+
+Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
 
 The PoC also shows how to implement **OAuth 2.0 Step-up Authentication** based on [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/). This gives the possibility to the API to implement step-up authentication thanks to understand the required Authentication Context Level (acr) and then, if the level is not enough, tells to the client that it needs to trigger step-up authentication. This improves the user experience as you can see in the demo.
 
@@ -8,14 +11,19 @@ You will find more details in the following article:
 - https://embesozzi.medium.com/keycloak-workshop-for-step-up-with-mfa-biometrics-authentication-passkeys-b7020ea9ae1b
 ## In Short
 
+### Step-up + MFA with Biometric Authentication (Passkeys)
 The PoC implements the concept of step-up authentication for web apps and APIs detailed in my previous [article](https://embesozzi.medium.com/keycloak-step-up-authentication-for-web-and-api-3ef4c9f25d42). Therefore, go there if you need more details about it.
 
 Nevertheless, I've added to the **Global Bank** portal the feature for handling the step-up on the API side following the [OAuth 2.0 Step-up Authentication Challenge Protocol](https://datatracker.ietf.org/doc/draft-ietf-oauth-step-up-authn-challenge/) proposed standard requiring MFA with Biometrics. So, the OAuth Spring **Bank Account API** will return 401 Unauthorized with 'WWW-Authenticate' header with 'insufficient_authentication_level' error message and the defined 'acr_values' that indicates to the client application what acr value to request at the identity provider. On the client side, the Bank Portal is able to interpred this error and redirect to the user to do the step-up authentication - with a lovely modal explaning the situation.
 
-In a second application called **Bank Loan** portal, you will see a full **passwordless** experience with **Passkeys**. This app uses Passkeys to improve the login experience.
+### Passworless experience with Passkey autofill
+When moving from passwords to passkeys, there might be challenges. User experience matters a lot. The default “modal” experience might not be good in some cases. But using the passkey with autofill (WebAuth Conditional UI) feature can improve the login process. Currently, Keycloak doesn’t have this feature, but I’ve made a custom SPI authenticator called [keycloak-webauthn-conditional-mediation](https://github.com/embesozzi/keycloak-webauthn-conditional-mediation) to add it.
 
-Lastly On the Keycloak (IdP) side, I've configured the Passkeys ([WebAuthn](https://webauthn.guide/)) authentication mechanism when the desired acr value is specified. Passkey is a new way to sign in that works completely without passwords. I use it as 2-factor authentication method by using the security capabilities of your devices like Touch ID and Face ID for the Bank Portal and the passwordless login experience for the Bank Loan Portal.
+As they say, a picture speaks a lot. In the demo, you’ll see something like this:
 
+![Architure](docs/passkey-autofill.png) 
+
+The application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
 ## Overview Architecture
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
@@ -27,6 +35,15 @@ Lastly On the Keycloak (IdP) side, I've configured the Passkeys ([WebAuthn](http
 * The **Bank Loan** Portal is a Vue application integrated with Keycloak using OpenID Connect. The Portal is authenticated with Keycloak, providing a passwordless experience with Passkeys.
 
 ![Architure](docs/architecture-2.png) 
+
+* The custom SPI **Webauthn Passwordless Conditional Mediation Authenticator** (the repo will be availble soon) supports the following features:
+    - Enabling passkey autofill when supported by the browser.
+    - Displaying the “Sign with passkeys” button if passkey autofill is not available.
+    - If Passkeys (Webauthn) are not supported, it will present the traditional username and password login option.
+
+* Here is the Passkeys Autofill flow :
+    <img src="docs/idp-flow-2.png" width="80%" height="80%">
+
 
 # How to install?
 ## Prerequisites
@@ -51,13 +68,13 @@ Lastly On the Keycloak (IdP) side, I've configured the Passkeys ([WebAuthn](http
 
 | Component                 | URI                        | Username | Password  | Authn or Authz reference|
 | ------------------------- | -------------------------- | -------- | --------- | --------- |
-| Global Bank Portal        | https://localhost/bank     |          |           | pwd (1F) or pwd + passkeys (MFA) |
-| Bank Account API Portal   | https://localhost/api      |          |           | OAuth 2.0 ACR claim loa2  |
-| Bank Loan Portal          | https://localhost/bankloan |          |           | passkeys (1F)  |
+| Global Bank Portal        | https://public-url/bank     |          |           | pwd (1F) or pwd + passkeys (MFA) |
+| Bank Account API Portal   | https://public-url/api      |          |           | OAuth 2.0 ACR claim loa2  |
+| Bank Loan Portal          | https://public-url/bankloan |          |           | passkeys autofill (1F) or pwd |
 | Keycloak Console          | https://localhost          | admin    | password  |
 
 
-4. Optional: If you want to expose the application to the internet, you can use ngrok for testing the passwordless experience with the mobile app. Just run the following command:
+4. Expose the application with a valid certificate, you can use ngrok for testing the passwordless experience. Just run the following command:
 
     ```bash
     docker run -it -e NGROK_AUTHTOKEN={YOUR-TOKEN} \
@@ -72,8 +89,8 @@ As an example, I've implemented **Global Bank portal** (Cases 1 and 2) portal th
 * If the user is not authenticated with MFA when managing bank accounts, it triggers the step-up to MFA :) in a lovely way
 
 The **Bank Loan portal** (Case 3) has the following requirements:
-* Supports OIDC login with Passkeys
-* Only authenticated user with Passkeys can view the loans
+* Supports OIDC login with Passkeys → A super nice way to do the login with Passkeys autofill
+* Only authenticated users can view and apply for the loans
 
 ### Use case 1: Sign up on the Global Bank Portal
 
@@ -101,7 +118,7 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 2.3 You will see to the Bank Portal Home:  
     <img src="docs/home.png" width="60%" height="60%">   
 
-2.4 Go to the Identity Profile section and check your ACR claim: **loa1**
+2.4 Go to the Identity Profile section and check your ACR claim: **loa1**   
     <img src="docs/home-loa1.png" width="60%" height="60%"> 
 
 2.5 Go to the Manage Bank Accounts. You will see that Authn Level is not enough, with a lovely modal that handles the step-up authentication based on the access denied information.   
@@ -118,22 +135,28 @@ The **Bank Loan portal** (Case 3) has the following requirements:
     <img src="docs/login-mfa-4.png" width="60%" height="60%">
     <img src="docs/login-mfa-5.png" width="60%" height="60%">
 
-2.8 You will see the Bank Account Information since you have signed in with MFA
+2.8 You will see the Bank Account Information since you have signed in with MFA   
     <img src="docs/home-manage-2.png" width="60%" height="60%">
 
-2.9 Go to the Identity Profile section and check your ACR claim: **loa2**
+2.9 Go to the Identity Profile section and check your ACR claim: **loa2**   
     <img src="docs/home-loa2.png" width="60%" height="60%"> 
 
-### Use case 3: Sign in passworless on the Bank Loan Portal
+## Use case 3: Sign in Passkey autofill on the Bank Loan (Web)
 
-3.1. Access the [Bank Loan Portal](https://localhost/bankloan) and sign in. In this case, I tested the login in a mobile app to verify the user experience (I exposed the app with ngrok):   
-    <img src="docs/loan-1.jpeg" width="40%" height="40%">
+3.1. Access the [Bank Loan Portal](https://public-url/bankloan)
+    <img src="docs/loan-web-1.png" width="60%" height="60%">   
+3.2 Simply click on the username, it will the passkey with autofill 🥰 and choose the passkey.   
+    <img src="docs/loan-web-2.png" width="60%" height="60%">
 
-3.2 Click Security key button:   
+3.3 Verify your identity and the you will see will see the Loan portal home:   
+    <img src="docs/loan-web-3.png" width="60%" height="60%">   
+    <img src="docs/loan-web-4.png" width="60%" height="60%">
+### Use case 4: Sign in passwordless default experience on the Bank Loan Portal
+
+Here are additional examples using the OOTB Keycloak Browser Passwordless feature, providing you with a better understanding of the default user experience.
+
+Here is the login with passkey in default modal experience:
+    <img src="docs/loan-web-5.png" width="40%" height="40%">
+
+Here is the login with passkey in a mobile app:
     <img src="docs/loan-2.jpeg" width="40%" height="40%">
-
-3.3 Verify your identity:      
-    <img src="docs/loan-3.jpeg" width="40%" height="40%">
-
-3.4 You will see the Bank Loan portal home:   
-    <img src="docs/loan-4.jpeg" width="40%" height="40%">

@@ -16,6 +16,7 @@ x-keycloak-environment: &keycloak-environment
   KC_HOSTNAME_STRICT_HTTPS: true
   KC_HTTP_ENABLED: true
   KC_HEALTH_ENABLED: true
+  KC_LOG_LEVEL: com.twogenidentity.keycloak:debug,org.keycloak.authentication:debug,org.keycloak.transaction:error,org.keycloak.transaction:error,org.keycloak.transaction:error,org.hibernate:error,INFO
 #  KC_FEATURES: account3
   KC_PROXY: edge
 
@@ -50,6 +51,7 @@ services:
       - 8443:8443
     volumes:  
      - $PWD/keycloak/realm-export-bank.json:/opt/keycloak/data/import/realm-export-bank.json
-     - $PWD/keycloak/themes:/opt/keycloak/themes  
+     - $PWD/keycloak/themes:/opt/keycloak/themes
+     - $PWD/keycloak/extensions/keycloak-webauthn-conditional-mediation.jar:/opt/keycloak/providers/keycloak-webauthn-conditional-mediation.jar  
     depends_on:
       - postgres
