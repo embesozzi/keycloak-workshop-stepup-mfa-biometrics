@@ -1,4 +1,4 @@
-# Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys) and Passwordless login
+# Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys) and Passwordless login with Passkey autofill
 
 This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). It also outlines the process of transitioning to a **passwordless** experience through the use of Passkeys.
 It doesn’t matter whether your current application utilizes authentication via username and password. I will demonstrate how you can also provide Passkey login, offering a remarkably smooth experience through [WebAuth Conditional UI](https://github.com/w3c/webauthn/wiki/Explainer:-WebAuthn-Conditional-UI) or Passkey autofill during the transition to a passwordless login.
@@ -21,7 +21,7 @@ When moving from passwords to passkeys, there might be challenges. User experien
 
 As they say, a picture speaks a lot. In the demo, you’ll see something like this:
 
-![Architure](docs/passkey-autofill.png) 
+<img src="docs/passkey-autofill.png" width="80%" height="80%">
 
 The application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
 ## Overview Architecture
@@ -36,7 +36,7 @@ The application named **Bank Loan** portal will utilize this approach to enhance
 
 ![Architure](docs/architecture-2.png) 
 
-* The custom SPI **Webauthn Passwordless Conditional Mediation Authenticator** (the repo will be availble soon) supports the following features:
+* The custom SPI **Webauthn Passwordless Conditional Mediation Authenticator** (the repository will be available shortly) supports the following features:
     - Enabling passkey autofill when supported by the browser.
     - Displaying the “Sign with passkeys” button if passkey autofill is not available.
     - If Passkeys (Webauthn) are not supported, it will present the traditional username and password login option.
@@ -143,7 +143,7 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 
 ## Use case 3: Sign in Passkey autofill on the Bank Loan (Web)
 
-3.1. Access the [Bank Loan Portal](https://public-url/bankloan)
+3.1. Access the [Bank Loan Portal](https://public-url/bankloan)   
     <img src="docs/loan-web-1.png" width="60%" height="60%">   
 3.2 Simply click on the username, it will the passkey with autofill 🥰 and choose the passkey.   
     <img src="docs/loan-web-2.png" width="60%" height="60%">
@@ -155,8 +155,8 @@ The **Bank Loan portal** (Case 3) has the following requirements:
 
 Here are additional examples using the OOTB Keycloak Browser Passwordless feature, providing you with a better understanding of the default user experience.
 
-Here is the login with passkey in default modal experience:
+Here is the login with passkey in default modal experience:   
     <img src="docs/loan-web-5.png" width="40%" height="40%">
 
-Here is the login with passkey in a mobile app:
+Here is the login with passkey in a mobile app:   
     <img src="docs/loan-2.jpeg" width="40%" height="40%">
