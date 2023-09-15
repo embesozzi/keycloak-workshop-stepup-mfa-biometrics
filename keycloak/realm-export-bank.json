@@ -437,7 +437,7 @@
         "token.response.type.bearer.lower-case": "false"
       },
       "authenticationFlowBindingOverrides": {
-        "browser": "7ed5da3b-4cac-449f-a823-82cdd3e6382e"
+        "browser": "7344e709-cbaa-4e60-9e4e-17b7ed14641c"
       },
       "fullScopeAllowed": true,
       "nodeReRegistrationTimeout": -1,

@@ -12,13 +12,13 @@ services:
     depends_on:
       - keycloak   
   oidc-demobankloan-vue:
-    build: ./oidc-demobankloan-vue
+    build: ./oidc-demobank-vue
     image: twogenidentity/oidc-demobankloan-vue:latest
-    container_name: oidc-demobankloan-vue
+    container_name: oidc-demobank-vue
     ports:
      - "8002:80"
-    volumes:
-      - ./oidc-demobankloan-vue/oidc-config.dev.js:/usr/share/nginx/html/dist/oidc-config.js
+    volumes: 
+      - ./oidc-demobank-vue/oidc-config.dev.js:/usr/share/nginx/html/dist/oidc-config.js
   oauth-stepup-demoapi-spring:
     build: ./oauth-stepup-demoapi-spring
     image: twogenidentity/oauth-stepup-demoapi-spring:latest
