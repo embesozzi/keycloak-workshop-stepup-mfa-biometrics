@@ -19,11 +19,18 @@ Nevertheless, I've added to the **Global Bank** portal the feature for handling 
 ### Passworless experience with Passkey autofill
 When moving from passwords to passkeys, there might be challenges. User experience matters a lot. The default “modal” experience might not be good in some cases. But using the passkey with autofill (WebAuth Conditional UI) feature can improve the login process. Currently, Keycloak doesn’t have this feature, but I’ve made a custom SPI authenticator called [keycloak-webauthn-conditional-mediation](https://github.com/embesozzi/keycloak-webauthn-conditional-mediation) to add it.
 
-As they say, a picture speaks a lot. In the demo, you’ll see something like this:
+Here's the default  user experience when trying to login with Passkeys, which is a dialog that pops up. In some cases the UX is not good.
+- Default user experience with Passkeys   
+<img src="docs/loan-web-5.png" width="40%" height="40%">
 
-<img src="docs/passkey-autofill.png" width="80%" height="80%">
+By using the feature called conditional UI (a part of the WebAuthn standard), you can enhance the UX. You can include passkeys in autofill suggestions.
+- Improved Passkeys with suggestions   
+<img src="docs/loan-web-2.png" width="80%" height="60%">
+    
+When the user taps on the username input, an autofill suggestion dialog appears with stored passkeys, in addition to password autofil. The user can then select an account and use the device screen lock to sign in.
 
-The application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
+In the workshop, the application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
+
 ## Overview Architecture
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
@@ -43,8 +50,7 @@ The application named **Bank Loan** portal will utilize this approach to enhance
 
 * Here is the Passkeys Autofill flow :
     <img src="docs/idp-flow-2.png" width="80%" height="80%">
-
-
+    
 # How to install?
 ## Prerequisites
 
@@ -81,6 +87,10 @@ The application named **Bank Loan** portal will utilize this approach to enhance
         ngrok/ngrok:alpine http host.docker.internal:443
     ```
 
+> **Considerations**:   
+> Check out the [Passkeys Browser Autofill UI Device Support link](https://passkeys.dev/device-support/). So far, Ubuntu doesnt not support Passkey Autofill UI.   
+>   
+   
 ## Test cases
 As an example, I've implemented **Global Bank portal** (Cases 1 and 2) portal that has the following requirements:
 
