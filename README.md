@@ -31,6 +31,13 @@ When the user taps on the username input, an autofill suggestion dialog appears 
 
 In the workshop, the application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
 
+### Webauthn Authenticator Conditional enrollment
+
+In the latest version of the workshop, we added the feature of allowing the user to decide when they want to register the WebAuthn authenticator with the custom SPI (WebAuthn Authenticator Conditional Enrollment), either during the sign-up or sign-in process. Therefore, you will follow the step below:   
+
+<img src="docs/webauthn-registration-conditional.png" width="60%" height="60%">
+
+
 ## Overview Architecture
 
 * Keycloak is responsible for handling the authentication with the standard OpenID Connect.
@@ -109,12 +116,19 @@ The **Bank Loan portal** (Case 3) has the following requirements:
     
 1.2. Complete the user information (step 1):   
      <img src="docs/register.png" width="60%" height="60%">
-     
-1.3. Register the Passkeys (step 2):  
+
+1.5. Click in Upgrade to Passkey button:
+
+You can do it during the sign-up or sign-in process.   
+
+<img src="docs/webauthn-registration-conditional.png" width="60%" height="60%">
+
+
+1.4. Register the Passkeys (step 2):  
     <img src="docs/register-passkeys-1.png" width="60%" height="60%">
     <img src="docs/register-passkeys-2.png" width="60%" height="60%">
 
-1.4. You will see the Bank Portal Home  
+1.5. You will see the Bank Portal Home  
     <img src="docs/home.png" width="60%" height="60%">
 
 ### Use case 2: Sign in to the Global Bank Portal for Managing Bank Accounts
