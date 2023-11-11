@@ -65,8 +65,8 @@
   "otpPolicyCodeReusable": false,
   "otpSupportedApplications": [
     "totpAppGoogleName",
-    "totpAppFreeOTPName",
-    "totpAppMicrosoftAuthenticatorName"
+    "totpAppMicrosoftAuthenticatorName",
+    "totpAppFreeOTPName"
   ],
   "webAuthnPolicyRpEntityName": "keycloak",
   "webAuthnPolicySignatureAlgorithms": [
@@ -606,16 +606,6 @@
   ],
   "clientScopes": [
     {
-      "id": "701a2ac5-3057-41f1-a1f5-359722261bf1",
-      "name": "offline_access",
-      "description": "OpenID Connect built-in scope: offline_access",
-      "protocol": "openid-connect",
-      "attributes": {
-        "consent.screen.text": "${offlineAccessScopeConsentText}",
-        "display.on.consent.screen": "true"
-      }
-    },
-    {
       "id": "8be2601f-6809-4bac-b509-3238afe86d21",
       "name": "phone",
       "description": "OpenID Connect built-in scope: phone",
@@ -657,6 +647,16 @@
           }
         }
       ]
+    },
+    {
+      "id": "701a2ac5-3057-41f1-a1f5-359722261bf1",
+      "name": "offline_access",
+      "description": "OpenID Connect built-in scope: offline_access",
+      "protocol": "openid-connect",
+      "attributes": {
+        "consent.screen.text": "${offlineAccessScopeConsentText}",
+        "display.on.consent.screen": "true"
+      }
     },
     {
       "id": "d3a6b211-5f60-4a46-8b14-9f65b19320dc",
@@ -747,6 +747,30 @@
       ]
     },
     {
+      "id": "ae60064e-42bd-4234-911e-b7cd497e6a7b",
+      "name": "acr",
+      "description": "OpenID Connect scope for add acr (authentication context class reference) to the token",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "false",
+        "display.on.consent.screen": "false"
+      },
+      "protocolMappers": [
+        {
+          "id": "3d3a8695-9453-4ab3-8e7a-c7a37e80268d",
+          "name": "acr loa level",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-acr-mapper",
+          "consentRequired": false,
+          "config": {
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "userinfo.token.claim": "true"
+          }
+        }
+      ]
+    },
+    {
       "id": "1920e547-ad0e-48c8-b447-7d7faf40f2af",
       "name": "address",
       "description": "OpenID Connect built-in scope: address",
@@ -773,30 +797,6 @@
             "user.attribute.region": "region",
             "access.token.claim": "true",
             "user.attribute.locality": "locality"
-          }
-        }
-      ]
-    },
-    {
-      "id": "ae60064e-42bd-4234-911e-b7cd497e6a7b",
-      "name": "acr",
-      "description": "OpenID Connect scope for add acr (authentication context class reference) to the token",
-      "protocol": "openid-connect",
-      "attributes": {
-        "include.in.token.scope": "false",
-        "display.on.consent.screen": "false"
-      },
-      "protocolMappers": [
-        {
-          "id": "3d3a8695-9453-4ab3-8e7a-c7a37e80268d",
-          "name": "acr loa level",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-acr-mapper",
-          "consentRequired": false,
-          "config": {
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "userinfo.token.claim": "true"
           }
         }
       ]
@@ -1162,14 +1162,14 @@
         "subComponents": {},
         "config": {
           "allowed-protocol-mapper-types": [
+            "oidc-usermodel-attribute-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "saml-user-property-mapper",
             "saml-user-attribute-mapper",
+            "saml-user-property-mapper",
             "oidc-usermodel-property-mapper",
-            "saml-role-list-mapper",
             "oidc-address-mapper",
-            "oidc-full-name-mapper",
-            "oidc-usermodel-attribute-mapper"
+            "saml-role-list-mapper",
+            "oidc-full-name-mapper"
           ]
         }
       },
@@ -1222,12 +1222,12 @@
           "allowed-protocol-mapper-types": [
             "oidc-full-name-mapper",
             "saml-role-list-mapper",
-            "oidc-address-mapper",
             "saml-user-attribute-mapper",
-            "saml-user-property-mapper",
-            "oidc-usermodel-property-mapper",
             "oidc-sha256-pairwise-sub-mapper",
-            "oidc-usermodel-attribute-mapper"
+            "saml-user-property-mapper",
+            "oidc-usermodel-attribute-mapper",
+            "oidc-address-mapper",
+            "oidc-usermodel-property-mapper"
           ]
         }
       },
@@ -1398,6 +1398,14 @@
           "priority": 13,
           "autheticatorFlow": true,
           "flowAlias": "Browser Passkeys Autofill Conditional Step",
+          "userSetupAllowed": false
+        },
+        {
+          "authenticator": "webauthn-conditional-enrollment",
+          "authenticatorFlow": false,
+          "requirement": "REQUIRED",
+          "priority": 14,
+          "autheticatorFlow": false,
           "userSetupAllowed": false
         }
       ]

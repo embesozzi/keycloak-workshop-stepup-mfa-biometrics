@@ -33,7 +33,11 @@ In the workshop, the application named **Bank Loan** portal will utilize this ap
 
 ### Webauthn Authenticator Conditional enrollment
 
-In the latest version of the workshop, we added the feature of allowing the user to decide when they want to register the WebAuthn authenticator with the custom SPI (WebAuthn Authenticator Conditional Enrollment), either during the sign-up or sign-in process. Therefore, you will follow the step below:   
+In the latest version of the workshop, we added the feature of allowing the user to decide when they want to register the WebAuthn authenticator with the custom SPI (WebAuthn Authenticator Conditional Enrollment), either during the sign-up or sign-in process.
+
+If the user doesn't have any passkey registered, it will be a common scenario when transitioning from a password-based to a passwordless experience. The sign-in process will ask the user if they want to upgrade to a passkey.
+
+Therefore, you will follow the step below:   
 
 <img src="docs/webauthn-registration-conditional.png" width="60%" height="60%">
 
@@ -57,7 +61,9 @@ In the latest version of the workshop, we added the feature of allowing the user
 
 * Here is the Passkeys Autofill flow :
     <img src="docs/idp-flow-2.png" width="80%" height="80%">
-    
+
+You can see we added the WebAuthn Conditional Enrollment step, which will help by asking the user if they want to move to a passwordless experience with a Passkey. The user will be asked if they don't have any passkey registered.
+
 # How to install?
 ## Prerequisites
 
@@ -118,7 +124,6 @@ The **Bank Loan portal** (Case 3) has the following requirements:
      <img src="docs/register.png" width="60%" height="60%">
 
 1.5. Click in Upgrade to Passkey button:
-
 You can do it during the sign-up or sign-in process.   
 
 <img src="docs/webauthn-registration-conditional.png" width="60%" height="60%">
@@ -175,6 +180,11 @@ You can do it during the sign-up or sign-in process.
 3.3 Verify your identity and the you will see will see the Loan portal home:   
     <img src="docs/loan-web-3.png" width="60%" height="60%">   
     <img src="docs/loan-web-4.png" width="60%" height="60%">
+
+(Optional) If the user doesn't have any passkey registered, it will be a common scenario when transitioning from a password-based to a passwordless experience. The sign-in process will ask the user if they want to upgrade to a passkey.   
+
+<img src="docs/webauthn-registration-conditional.png" width="60%" height="60%">
+
 ### Use case 4: Sign in passwordless default experience on the Bank Loan Portal
 
 Here are additional examples using the OOTB Keycloak Browser Passwordless feature, providing you with a better understanding of the default user experience.
