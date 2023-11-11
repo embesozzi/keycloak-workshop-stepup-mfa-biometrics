@@ -1,7 +1,7 @@
 # Keycloak Workshop for Step Up with MFA Biometrics Authentication (Passkeys) and Passwordless login with Passkey autofill
 
 This repository contains a PoC implemented with [Keycloak](https://www.keycloak.org/) on demostrating how to apply Step Up for Web Apps and APIs with Biometrics Authentication, in this case, [Passkeys](https://fidoalliance.org/passkeys). It also outlines the process of transitioning to a **passwordless** experience through the use of Passkeys.
-It doesn’t matter whether your current application utilizes authentication via username and password. I will demonstrate how you can also provide Passkey login, offering a remarkably smooth experience through [WebAuth Conditional UI](https://github.com/w3c/webauthn/wiki/Explainer:-WebAuthn-Conditional-UI) or Passkey autofill during the transition to a passwordless login.
+It doesn’t matter whether your current application utilizes authentication via username and password. I will demonstrate how you can also provide Passkey login, offering a remarkably smooth experience through [WebAuth Conditional UI](https://github.com/w3c/webauthn/wiki/Explainer:-WebAuthn-Conditional-UI) or Passkey autofill during the transition to a passwordless login. Additionally, we will explore how we can gradually encourage existing users to register a passkey during the sign-in process 😄.
 
 Based on [FIDO Alliance](https://fidoalliance.org) and W3C standards, Passkeys replace passwords with cryptographic key pairs. Passkeys are: Strong credentials, Safe from server leaks and Safe from phishing.
 
@@ -9,6 +9,7 @@ The PoC also shows how to implement **OAuth 2.0 Step-up Authentication** based o
 
 You will find more details in the following article:
 - https://embesozzi.medium.com/keycloak-workshop-for-step-up-with-mfa-biometrics-authentication-passkeys-b7020ea9ae1b
+
 ## In Short
 
 ### Step-up + MFA with Biometric Authentication (Passkeys)
@@ -31,11 +32,11 @@ When the user taps on the username input, an autofill suggestion dialog appears 
 
 In the workshop, the application named **Bank Loan** portal will utilize this approach to enhance the overall passwordless experience through the use of **Passkeys** with autofill.
 
-### Webauthn Authenticator Conditional enrollment
+### Progressive passkey enrollment during the sign-up or sign-in process
 
 In the latest version of the workshop, we added the feature of allowing the user to decide when they want to register the WebAuthn authenticator with the custom SPI (WebAuthn Authenticator Conditional Enrollment), either during the sign-up or sign-in process.
 
-If the user doesn't have any passkey registered, it will be a common scenario when transitioning from a password-based to a passwordless experience. The sign-in process will ask the user if they want to upgrade to a passkey.
+If the user doesn't have any passkey registered, it will be a common scenario when transitioning from a password-based to a passwordless experience. The sign-in process will ask the user if they want to upgrade to a Passkey to improve the security and UX experience.
 
 Therefore, you will follow the step below:   
 
